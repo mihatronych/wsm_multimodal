@@ -3,4 +3,5 @@ An interpretable, multimodal approach for detecting cognitive disorders, specifi
 [Submitted to SPECOM 2025]
 
 The dataset used:
+
   Joana Correia, Isabel Trancoso, and Bhiksha Raj. 2020. Automatic In-the-wild Dataset Annotation with Deep Generalized Multiple Instance Learning. In Proceedings of the Twelfth Language Resources and Evaluation Conference, pages 3542–3550, Marseille, France. European Language Resources Association.
