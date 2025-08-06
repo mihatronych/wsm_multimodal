@@ -3,11 +3,10 @@ from datetime import datetime, timedelta
 from silero_vad import load_silero_vad, read_audio, get_speech_timestamps
 import soundfile as sf
 import whisper_timestamped as whisper
-
 import os
 import sys
 import torch
-from .contradictions_list import get_norm_text
+from .normalize_text import get_norm_text
 
 model = whisper.load_model("openai/whisper-large-v3-turbo", device="cuda")
 

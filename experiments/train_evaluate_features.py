@@ -8,6 +8,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.svm import SVC
 from typing import Tuple, Dict
 from .training_pipeline import *
+from .load_and_merge_feature_csvs import *
 
 def get_feature_subset_by_task(task, features_hc, features_all):
     """
@@ -131,6 +132,7 @@ def get_default_models() -> Dict[str, object]:
         "LogReg": LogisticRegression(max_iter=1000, random_state=42),
         "DecisionTree": DecisionTreeClassifier(random_state=42),
         "SVM": SVC(probability=True, random_state=42),
+        "Conv1D":Conv1DClassifier(),
     }
 
 
@@ -188,6 +190,22 @@ def save_best_model_or_ensemble(task, df_results, trained_models, ensemble_membe
             }, f)
 
 if __name__ == "__main__":
+    # Define where your data is
+    data_dirs = {
+        "depression": "depression/",
+        "parkinson": "parkinson/"
+    }
+
+    # Load datasets
+    x_dfs_seg = load_datasets(data_dirs)
+
+    # Extract labels
+    y_s_seg = extract_labels(x_dfs_seg)
+
+    # Clean and split features
+    x_dfs_seg_clean, features_subsets_seg, features_subsets_seg_hc = split_features(x_dfs_seg, keep_ids=False)
+
+    
     # example
     task = "parkinson_expl_at"
 

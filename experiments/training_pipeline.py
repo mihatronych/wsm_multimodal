@@ -1,16 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Enhanced training pipeline
---------------------------
-• Adds robust normalisation (StandardScaler)
-• Persists the best-performing model with pickle
-• Generates SHAP feature-importance visualisation for the winning model
-
-Usage
------
-Run as a script after defining `x_dfs_seg`, `y_s_seg`, `features_subsets` in your notebook / environment.
-`shap_summary.png` and `best_model.pkl` will be created in the working directory.
-"""
 import time
 import pickle
 import math
@@ -42,6 +30,7 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.svm import SVC
 from scipy.stats import mode
+from .conv_models import *
 
 ###############################################################################
 # Utility functions
@@ -251,10 +240,6 @@ def train_evaluate_models_with_multiple_feature_subsets(
             X_train_sel = X_train[subset_numeric]
             X_test_sel = X_test[subset_numeric]
             
-            #if X_train_sel.shape[1] > 100 and not expl and "Conv1D" not in models:
-            #    print("Added conv models")
-                #models["Conv1D"] = Conv1DClassifier(input_size=X_train_sel.shape[1])
-                #models["Conv1DAtt"] = Conv1DAttentionClassifier(input_size=X_train_sel.shape[1])
             if X_train_sel.shape[1] > 100 and not expl and "Conv1D" not in base_name:
                 print("Reduced features")
                 reducer = Conv1DReducer(out_features=64)
@@ -318,7 +303,7 @@ def train_evaluate_models_with_multiple_feature_subsets(
                         "sensitivity": count_sens(y_test, y_pred),
                     }
                 )
-                # ✨ NEW: Cross-validation metrics on train set
+                # NEW: Cross-validation metrics on train set
                 from sklearn.model_selection import StratifiedKFold
 
                 skf = StratifiedKFold(n_splits=cv, shuffle=True, random_state=random_state)
