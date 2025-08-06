@@ -1,6 +1,9 @@
 from sklearn.base import BaseEstimator, TransformerMixin
 import torch
 import torch.nn as nn
+from tqdm import tqdm
+import copy
+
 
 class Conv1DReducer(BaseEstimator, TransformerMixin):
     def __init__(self, in_channels=1, out_channels=16, kernel_size=3, out_features=64):
@@ -24,11 +27,6 @@ class Conv1DReducer(BaseEstimator, TransformerMixin):
             x_tensor = torch.tensor(X.values, dtype=torch.float32).unsqueeze(1)
             return self.model(x_tensor).numpy()
 
-from tqdm import tqdm
-import torch
-import torch.nn as nn
-from sklearn.base import BaseEstimator, ClassifierMixin
-import copy
 
 class Conv1DAttentionClassifier(BaseEstimator, ClassifierMixin):
     def __init__(self, input_size=None, num_classes=2, lr=1e-3,
@@ -130,15 +128,6 @@ class Conv1DAttentionClassifier(BaseEstimator, ClassifierMixin):
             logits = self.classifier(flat)
             return torch.argmax(logits, dim=1).numpy()
 
-from sklearn.base import BaseEstimator, ClassifierMixin
-import torch
-import torch.nn as nn
-
-from tqdm import tqdm
-import torch
-import torch.nn as nn
-from sklearn.base import BaseEstimator, ClassifierMixin
-import copy
 
 class Conv1DClassifier(BaseEstimator, ClassifierMixin):
     def __init__(self, input_size=None, num_classes=2, lr=1e-3,

@@ -185,7 +185,7 @@ def run_full_evaluation(task="depression", modality="avt", use_ensemble=True, id
 
     shap_results = {}
     model_type = "ensemble" if use_ensemble and "ensemble" in art else "single"
-    print(f"🔎 Using {model_type.upper()} model(s)")
+    print(f"Using {model_type.upper()} model(s)")
 
     if model_type == "single":
         model, feats = art["single"]
